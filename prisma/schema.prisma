@@ -22,4 +22,30 @@ model User {
   headPic    String   @default("https://img.yzcdn.cn/vant/cat.jpeg") @db.VarChar(100)
   createTime DateTime @default(now())
   updateTime DateTime @updatedAt
+
+  friends        Friendship[] @relation("userToFriend")
+  inverseFriends Friendship[] @relation("friendToUser")
+}
+
+model Friendship {
+  user   User @relation("userToFriend", fields: [userId], references: [id])
+  userId Int
+
+  friend   User @relation("friendToUser", fields: [friendId], references: [id])
+  friendId Int
+
+  @@id([userId, friendId])
+}
+
+model FriendRequest {
+  id         Int      @id @default(autoincrement())
+  // 请求人
+  fromUserId Int
+  // 被请求人
+  toUserId   Int
+  reason     String   @db.VarChar(100)
+  // 0:未处理 1:同意 2:拒绝
+  status     Int      @default(0)
+  createTime DateTime @default(now())
+  updateTime DateTime @updatedAt
 }
