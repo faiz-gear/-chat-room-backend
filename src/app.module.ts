@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './utils/auth.guard';
 import { FriendshipModule } from './friendship/friendship.module';
+import { ChatroomModule } from './chatroom/chatroom.module';
 
 const loadEnv = (path: string) => join(__dirname, '..', path);
 
@@ -43,6 +44,7 @@ const loadEnv = (path: string) => join(__dirname, '..', path);
       inject: [ConfigService],
     }),
     FriendshipModule,
+    ChatroomModule,
   ],
   controllers: [AppController],
   providers: [

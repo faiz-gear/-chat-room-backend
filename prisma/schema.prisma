@@ -49,3 +49,19 @@ model FriendRequest {
   createTime DateTime @default(now())
   updateTime DateTime @updatedAt
 }
+
+model ChatRoom {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(50)
+  // 0:单聊 1:群聊
+  type       Int      @default(0)
+  createTime DateTime @default(now())
+  updateTime DateTime @updatedAt
+}
+
+model UserChatRoom {
+  userId     Int
+  chatRoomId Int
+
+  @@id([userId, chatRoomId])
+}
